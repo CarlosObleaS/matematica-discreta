@@ -7,23 +7,19 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v3
-        with:
-          version: 9
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
-      - run: pnpm install
-      - run: pnpm build --base /matematica-discreta/
+      - run: npm install
+      - run: npm run build -- --base /matematica-discreta/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        permissions:
-          pages: write
-          id-token: write
