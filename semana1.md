@@ -119,6 +119,62 @@ Es la herramienta principal para encontrar el **inverso multiplicativo modular**
 Si necesitas resolver $ax \equiv 1 \pmod{n}$, el algoritmo extendido te da la solución. Esto es lo que permite que el cifrado **RSA** funcione al generar las llaves privadas.
 
 ---
+layout: section
+---
+
+# Ejemplo Real: El Banco y la Llave Privada
+Uso del Inverso Multiplicativo Modular en Criptografía
+
+---
+layout: default
+---
+
+## 1. El Escenario (RSA Simplificado)
+
+Para asegurar una comunicación, el Banco define un **módulo (n)** y una **llave pública (a)**.
+
+- **Módulo ($n$):** $7$ (Nuestro "universo" o reloj)
+- **Llave Pública ($a$):** $3$ (Con la que el cliente cifra)
+
+### El reto del Banco:
+Encontrar la **Llave Privada ($x$)** que cumpla:
+$$3 \cdot x \equiv 1 \pmod 7$$
+
+<v-click>
+
+### 🛠️ Solución mediante Euclides Extendido:
+El algoritmo nos devuelve que **$x = 5$**.
+* **Comprobación:** $3 \times 5 = 15$
+* $15 \div 7 = 2$ con **residuo 1**.
+* Por lo tanto, la llave privada es **5**.
+
+</v-click>
+
+---
+
+## 2. El Proceso de Cifrado
+
+| Actor | Acción | Operación | Resultado |
+|---|---|---|---|
+| **Cliente** | Quiere enviar el mensaje **2** | $2 \times 3$ (Llave Pública) | **6** |
+| **Internet** | El mensaje viaja cifrado | No se puede leer el "2" original | **6** |
+| **Banco** | Recibe el **6** y usa su **Llave Privada (5)** | $6 \times 5 = 30$ | **2** |
+
+### ¿Cómo recuperó el Banco el mensaje?
+Aplicando el módulo al resultado final:
+$$30 \pmod 7 \implies 30 = (7 \times 4) + \mathbf{2}$$
+
+**¡El mensaje original (2) ha sido recuperado!**
+
+---
+layout: fact
+---
+
+## ¿Por qué funciona?
+Porque $a \cdot x \equiv 1$ actúa como un **"neutralizador"**. 
+Al multiplicar por la llave privada, estamos multiplicando por "$1$ matemático" dentro del reloj, lo que deja al descubierto el mensaje original.
+
+---
 
 # 4. El Pequeño Teorema de Fermat
 
