@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "slidev build semana1.md",
-    "dev": "slidev --open",
+    "dev": "slidev semana1.md --open",
     "export": "slidev export",
     "deploy": "slidev build --out dist && gh-pages -d dist"
   },
